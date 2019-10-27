@@ -9,6 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".value.ValorAlternativa"></activity>
+        <activity android:name=".value.ValorCriterio" />
+        <activity android:name=".result.ResultadoValorAlternativa" />
+        <activity android:name=".result.ResultadoValorCriterio" />
+        <activity android:name=".input.Alternativa" />
+        <activity android:name=".input.Criterio" />
         <activity android:name=".home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
