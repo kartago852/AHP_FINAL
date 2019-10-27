@@ -1,8 +1,10 @@
-package com.example.ahp_final;
+package com.example.ahp_final.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.ahp_final.R;
 
 public class HomeActivity extends AppCompatActivity {
 
