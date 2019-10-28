@@ -8,8 +8,10 @@
     android:background="#1a237e">
 
     <ScrollView
+        android:id="@+id/alternativa_scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/alternativa_btn"
         android:padding="8dp">
 
         <LinearLayout
@@ -20,6 +22,7 @@
 
     </ScrollView>
     <LinearLayout
+        android:id="@+id/alternativa_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -34,11 +37,12 @@
             android:textSize="28sp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_width="69dp"
+            android:layout_height="58dp"
             android:layout_marginStart="8dp"
-            android:src="@drawable/add"/>
+            android:layout_marginLeft="8dp"
+
+            android:src="@drawable/add" />
 
     </LinearLayout>
 </RelativeLayout>
