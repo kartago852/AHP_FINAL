@@ -14,6 +14,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+
+/**
+ * Created by wisnu on 12/23/17.
+ */
+
 @SuppressLint("ViewConstructor")
 public class MyItemView extends LinearLayout {
 

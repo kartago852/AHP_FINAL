@@ -15,7 +15,7 @@
         android:padding="8dp">
 
         <LinearLayout
-            android:id="@+id/alternatif_container"
+            android:id="@+id/alternativa_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
@@ -41,8 +41,8 @@
             android:layout_height="58dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-
-            android:src="@drawable/add" />
+            android:src="@drawable/add"
+            android:tint="@color/colorPrimary"/>
 
     </LinearLayout>
 </RelativeLayout>
