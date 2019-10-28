@@ -24,6 +24,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Created by Franco on 12/23/19.
+ */
+
 public class Alternativa extends AppCompatActivity {
 
     private ModeloVistaData modeloVistaData = null;
@@ -127,7 +131,7 @@ public class Alternativa extends AppCompatActivity {
             if (validateScreen()) {
                 String ida= mDatabase.push().getKey();
                 mDatabase.child( "Alternativas" ).child( ida ).setValue( getDataViewModelAlter() );
-                launchCriteriosValueScreen();
+                launchAlternativaValueScreen();
             }
             return true;
         }
@@ -135,7 +139,7 @@ public class Alternativa extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void launchCriteriosValueScreen() {
+    private void launchAlternativaValueScreen() {
         Intent intent = new Intent(this, ValorAlternativa.class);
         intent.putExtra(ModeloVistaData.DATA_KEY, getDataViewModel());
         startActivity(intent);
