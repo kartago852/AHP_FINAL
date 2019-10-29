@@ -36,7 +36,7 @@ public class Matrix {
         rows[indices[0]][indices[1]] = value;
     }
 
-    public Map<String, Float> getTotalBaris() {
+    public Map<String, Float> getTotalFilas() {
         Map<String, Float> totals = new HashMap<>();
         float grandTotal = 0;
         for (int i = 0; i < this.rowLabels.length; i++) {
