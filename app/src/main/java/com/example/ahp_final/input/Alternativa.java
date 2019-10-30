@@ -14,6 +14,7 @@ import com.example.ahp_final.R;
 import com.example.ahp_final.model.ModeloVistaData;
 import com.example.ahp_final.utils.ViewUtils;
 import com.example.ahp_final.value.ValorAlternativa;
+import com.example.ahp_final.value.ValorCriterio;
 import com.example.ahp_final.view.MyItemView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -140,7 +141,7 @@ public class Alternativa extends AppCompatActivity {
     }
 
     private void launchAlternativaValueScreen() {
-        Intent intent = new Intent(this, ValorAlternativa.class);
+        Intent intent = new Intent(this, ValorCriterio.class);
         intent.putExtra(ModeloVistaData.DATA_KEY, getDataViewModel());
         startActivity(intent);
     }
