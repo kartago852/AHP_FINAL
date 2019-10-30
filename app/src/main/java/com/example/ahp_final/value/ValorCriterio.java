@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.example.ahp_final.R;
 import com.example.ahp_final.model.ModeloVistaData;
 import com.example.ahp_final.result.ResultadoValorAlternativa;
+import com.example.ahp_final.result.ResultadoValorCriterio;
 import com.example.ahp_final.utils.Matrix;
 import com.example.ahp_final.utils.StringUtils;
 import com.example.ahp_final.utils.ViewUtils;
@@ -174,7 +175,7 @@ public class ValorCriterio extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_selesai) {
-            Intent intent = new Intent(this, ResultadoValorAlternativa.class);
+            Intent intent = new Intent(this, ResultadoValorCriterio.class);
             intent.putExtra(ModeloVistaData.DATA_KEY, getDataResult());
             startActivity(intent);
             return true;
