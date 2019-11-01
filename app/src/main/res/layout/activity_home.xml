@@ -8,12 +8,13 @@
     android:background="#1a237e">
 
     <TextView
+        android:id="@+id/texser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:padding="24dp"
-        android:text="Aplicacion Movil Basada en el Proceso de Analisis Jerarquico para Seleccionar el Mejor Proveedor"
         android:textSize="24sp" />
 
     <Button
