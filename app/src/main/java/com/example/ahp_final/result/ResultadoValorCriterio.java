@@ -98,7 +98,7 @@ public class ResultadoValorCriterio extends AppCompatActivity {
         criterioResultContainer.addView(table);
     }
 
-    // METODO GRAFICO CIRCULAR
+    // METODO GRAFICO CIRCULAR CRITERIOS
     private void pieChart(){
 
         pieChart = findViewById( R.id.piechart );
