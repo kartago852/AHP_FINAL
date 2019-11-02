@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,12 +17,25 @@ import com.example.ahp_final.R;
 import com.example.ahp_final.model.ModeloVistaData;
 import com.example.ahp_final.value.ValorAlternativa;
 import com.example.ahp_final.value.ValorCriterio;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Franco on 12/23/19.
  */
 
 public class ResultadoValorCriterio extends AppCompatActivity {
+
+    private PieChart pieChart;
+
 
     private LinearLayout okButton;
     private LinearLayout criterioResultContainer;
@@ -35,7 +49,8 @@ public class ResultadoValorCriterio extends AppCompatActivity {
 
         bindData();
         initToolbar();
-        initResultView();
+        //initResultView();
+        pieChart();
         initOkButton();
     }
 
@@ -51,10 +66,10 @@ public class ResultadoValorCriterio extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void initResultView() {
-        criterioResultContainer = findViewById(R.id.kriteria_result_container);
+        criterioResultContainer = findViewById(R.id.criterio_result_container);
 
-        TableLayout tabel = new TableLayout(this);
-        tabel.setPadding(2, 2, 2, 10);
+        TableLayout table = new TableLayout(this);
+        table.setPadding(2, 2, 2, 10);
         for (String criterio : modeloVistaData.CriterioValorMap.keySet()) {
 
             TableRow fila = new TableRow(this);
@@ -78,10 +93,57 @@ public class ResultadoValorCriterio extends AppCompatActivity {
             fila.addView(criterioLabel);
             fila.addView(criterioValue);
 
-            tabel.addView(fila);
+            table.addView(fila);
         }
-        criterioResultContainer.addView(tabel);
+        criterioResultContainer.addView(table);
     }
+
+    // METODO GRAFICO CIRCULAR
+    private void pieChart(){
+
+        pieChart = findViewById( R.id.piechart );
+
+        pieChart.setUsePercentValues( true );
+        pieChart.getDescription().setEnabled( false );
+        pieChart.setExtraOffsets( 5,10,5,5 );
+
+        pieChart.setDragDecelerationFrictionCoef( 0.99f );
+
+        pieChart.setDrawHoleEnabled( true );
+        pieChart.setHoleColor( Color.BLUE );
+        pieChart.setTransparentCircleRadius( 60f );
+        pieChart.setCenterTextSize( 20f );
+        pieChart.setCenterText( "Criterios" );
+
+        pieChart.animateY( 1000, Easing.EasingOption.EaseInOutCubic );
+
+
+        List<PieEntry> pieEntries = new ArrayList<>();
+
+        for(String criterio : modeloVistaData.CriterioValorMap.keySet()){
+
+            Float weight = modeloVistaData.CriterioValorMap.get(criterio);
+            String porcentaje = String.valueOf(Math.round(weight * 100));
+            pieEntries.add( new PieEntry( Integer.parseInt(porcentaje), criterio) );
+
+        }
+
+        PieDataSet dataSet = new PieDataSet( pieEntries, ": Criterios" );
+        Legend legend = pieChart.getLegend();
+        legend.setTextSize( 30f );
+
+        dataSet.setSliceSpace( 1f );
+        dataSet.setSelectionShift( 5f );
+        dataSet.setColors( ColorTemplate.JOYFUL_COLORS );
+
+        PieData data = new PieData( (dataSet) );
+        data.setValueTextSize( 20f );
+        data.setValueTextColor( Color.BLACK );
+
+        pieChart.setData( data );
+    }
+
+    // FIN
 
     private void initOkButton() {
         okButton = findViewById(R.id.ok_btn);

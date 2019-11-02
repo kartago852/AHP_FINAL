@@ -6,12 +6,22 @@
     android:background="#1a237e">
 
     <LinearLayout
-        android:id="@+id/kriteria_result_container"
+        android:id="@+id/criterio_result_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ok_btn"
         android:orientation="vertical"
-        android:padding="16dp" />
+        android:padding="16dp" >
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+        </com.github.mikephil.charting.charts.PieChart>
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/ok_btn"
