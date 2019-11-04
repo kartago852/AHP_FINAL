@@ -155,25 +155,25 @@ public class ValorAlternativa extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_selesai) {
-            launchAlternatifBobotResultScreen();
+            launchAlternativaValorResultScreen();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void launchAlternatifBobotResultScreen() {
+    private void launchAlternativaValorResultScreen() {
         Intent intent = new Intent(this, ResultadoValorAlternativa.class);
-        intent.putExtra(ModeloVistaData.DATA_KEY, getHasilPembobotan());
+        intent.putExtra(ModeloVistaData.DATA_KEY, getDataAlternativa());
         startActivity(intent);
     }
 
-    private ModeloVistaData getHasilPembobotan() {
+    private ModeloVistaData getDataAlternativa() {
         for (String alternativa : modeloVistaData.AlternativaValorMap.keySet()) {
             float valor = 0;
             for (String criterio : modeloVistaData.CriterioValorMap.keySet()) {
                 float weight = modeloVistaData.CriterioValorMap.get(criterio);
-                float rating = this.matrix.getValue(alternativa, criterio) * 20; // 5 bintang = 100%
+                float rating = this.matrix.getValue(alternativa, criterio) * 20; // 5 estrella completa = 100%
                 valor += rating * weight;
             }
             modeloVistaData.AlternativaValorMap.put(alternativa, valor);

@@ -13,7 +13,17 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/back_to_first_btn"
         android:orientation="vertical"
-        android:padding="8dp"/>
+        android:padding="8dp">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechartalt"
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:layout_marginTop="10dp">
+
+        </com.github.mikephil.charting.charts.PieChart>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/back_to_first_btn"

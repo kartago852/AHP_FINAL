@@ -49,7 +49,7 @@ public class ResultadoValorCriterio extends AppCompatActivity {
 
         bindData();
         initToolbar();
-        //initResultView();
+        initResultView();
         pieChart();
         initOkButton();
     }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.ahp_final.R;
 import com.example.ahp_final.input.Criterio;
 import com.example.ahp_final.model.ModeloVistaData;
+import com.example.ahp_final.value.ValorAlternativa;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -25,6 +26,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -45,8 +47,9 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
 
         bindData();
         initToolbar();
+
+        initView();
         pieChart();
-        //initView();
         initBackToHomeButton();
     }
 
@@ -59,6 +62,63 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
+
+
+    // METODO GRAFICO CIRCULAR ALTERNATIVAS
+    @SuppressLint("SetTextI18n")
+    private void pieChart(){
+
+        pieChart = findViewById( R.id.piechartalt );
+
+        pieChart.setUsePercentValues( false );
+        pieChart.getDescription().setEnabled( false );
+        pieChart.setExtraOffsets( 5,10,5,5 );
+
+        pieChart.setDragDecelerationFrictionCoef( 0.99f );
+
+        pieChart.setDrawHoleEnabled( true );
+        pieChart.setHoleColor( Color.BLUE );
+        pieChart.setTransparentCircleRadius( 60f );
+        pieChart.setCenterTextSize( 20f );
+        pieChart.setCenterText( "Alternativas" );
+
+        pieChart.animateY( 1000, Easing.EasingOption.EaseInOutCubic );
+
+        Iterator<String> it = modeloVistaData.AlternativaValorMap.keySet().iterator();
+        List<PieEntry> pieEntries = new ArrayList<PieEntry>();
+
+        while (it.hasNext()) {
+
+            String alternativa = it.next();
+
+            Float grade = modeloVistaData.AlternativaValorMap.get(alternativa);
+            String percent = String.valueOf((Math.round( grade )));
+
+
+
+            pieEntries.add( new PieEntry( Integer.valueOf( percent ), alternativa ));
+
+            PieDataSet dataSet = new PieDataSet( pieEntries, ": Alternativa" );
+            Legend legend = pieChart.getLegend();
+            legend.setTextSize( 30f );
+
+
+            dataSet.setSliceSpace( 1f );
+            dataSet.setSelectionShift( 5f );
+            dataSet.setColors( ColorTemplate.JOYFUL_COLORS );
+
+            PieData data = new PieData( (dataSet) );
+            data.setValueTextSize( 20f );
+            data.setValueTextColor( Color.BLACK );
+
+            pieChart.setData( data );
+            pieChart.invalidate();
+
+        }
+    }
+
+    // FIN
+
 
     @SuppressLint("SetTextI18n")
     private void initView() {
@@ -123,53 +183,6 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
         scroller.addView(layout);
         alternativaValorResultWrapper.addView(scroller);
     }
-
-    // METODO GRAFICO CIRCULAR ALTERNATIVAS
-    private void pieChart(){
-
-        pieChart = findViewById( R.id.piechart );
-
-        pieChart.setUsePercentValues( true );
-        pieChart.getDescription().setEnabled( false );
-        pieChart.setExtraOffsets( 5,10,5,5 );
-
-        pieChart.setDragDecelerationFrictionCoef( 0.99f );
-
-        pieChart.setDrawHoleEnabled( true );
-        pieChart.setHoleColor( Color.BLUE );
-        pieChart.setTransparentCircleRadius( 60f );
-        pieChart.setCenterTextSize( 20f );
-        pieChart.setCenterText( "Criterios" );
-
-        pieChart.animateY( 1000, Easing.EasingOption.EaseInOutCubic );
-
-
-        List<PieEntry> pieEntries = new ArrayList<>();
-
-        for(String alternativa : modeloVistaData.AlternativaValorMap.keySet()){
-
-            Float weight = modeloVistaData.AlternativaValorMap.get(alternativa);
-            String porcentaje = String.valueOf(Math.round(weight * 100));
-            pieEntries.add( new PieEntry( Integer.parseInt(porcentaje), alternativa) );
-
-        }
-
-        PieDataSet dataSet = new PieDataSet( pieEntries, ": Alternativa" );
-        Legend legend = pieChart.getLegend();
-        legend.setTextSize( 30f );
-
-        dataSet.setSliceSpace( 1f );
-        dataSet.setSelectionShift( 5f );
-        dataSet.setColors( ColorTemplate.JOYFUL_COLORS );
-
-        PieData data = new PieData( (dataSet) );
-        data.setValueTextSize( 20f );
-        data.setValueTextColor( Color.BLACK );
-
-        pieChart.setData( data );
-    }
-
-    // FIN
 
     private void initBackToHomeButton() {
         backToHomeButton = findViewById(R.id.back_to_first_btn);
