@@ -1,9 +1,13 @@
 package com.example.ahp_final.result;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -45,12 +49,23 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_resultado_valor_alternativa );
 
+
+        permisos();
         bindData();
         initToolbar();
 
         initView();
         pieChart();
         initBackToHomeButton();
+    }
+
+    private void permisos(){
+
+        if (ActivityCompat.checkSelfPermission( this, Manifest.permission.WRITE_EXTERNAL_STORAGE ) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( this ,Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions( this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,},1000 );
+        }
     }
 
     private void bindData() {
