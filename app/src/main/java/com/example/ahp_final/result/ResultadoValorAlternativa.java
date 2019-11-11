@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -30,6 +31,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.io.FileOutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,6 +59,21 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
         initView();
         pieChart();
         initBackToHomeButton();
+    }
+
+    public void excelData(View view){
+        StringBuilder data = new StringBuilder(  );
+        data.append( "" );
+
+        try {
+            FileOutputStream out = openFileOutput( "data.csv", Context.MODE_PRIVATE );
+            out.write( (data.toString().getBytes()) );
+            out.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     private void permisos(){

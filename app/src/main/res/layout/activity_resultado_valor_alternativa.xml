@@ -23,6 +23,14 @@
 
         </com.github.mikephil.charting.charts.PieChart>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Importar en excel"
+            android:onClick="excelData">
+
+        </Button>
+
     </LinearLayout>
 
     <LinearLayout
