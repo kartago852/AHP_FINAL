@@ -2,6 +2,7 @@ package com.example.ahp_final.result;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ahp_final.R;
 import com.example.ahp_final.input.Criterio;
@@ -31,6 +34,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -45,6 +49,9 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
 
     private LinearLayout alternativaValorResultWrapper;
     private LinearLayout backToHomeButton;
+
+    private TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +69,42 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
     }
 
     public void excelData(View view){
-        StringBuilder data = new StringBuilder(  );
-        data.append( "" );
+        Iterator<String> itext = modeloVistaData.AlternativaValorMap.keySet().iterator();
+        List<StringBuilder> stringBuilder = new ArrayList<>(  );
+        while(itext.hasNext()) {
+            //Generar Data
 
-        try {
-            FileOutputStream out = openFileOutput( "data.csv", Context.MODE_PRIVATE );
-            out.write( (data.toString().getBytes()) );
-            out.close();
 
-        }catch (Exception e){
-            e.printStackTrace();
+            String alternativa = itext.next();
+            Float grade = modeloVistaData.AlternativaValorMap.get( alternativa );
+            stringBuilder.add( new StringBuilder(alternativa));
+        /*
+        for (int x = 0; x<5;x++){
+            data.append( "\n"+String.valueOf( x )+","+String.valueOf( x*x ) );
+        }
+        */
+
+            try {
+                FileOutputStream out = openFileOutput( "data.csv", Context.MODE_PRIVATE );
+                out.write( (stringBuilder.toString().getBytes()) );
+                out.close();
+
+                Context context = getApplicationContext();
+                File fileLocation = new File( getFilesDir(), "data.csv" );
+                Uri path = FileProvider.getUriForFile( context, "com.example.ahp_final.fileprovider", fileLocation );
+                Intent fileIntent = new Intent( Intent.ACTION_SEND );
+                fileIntent.setType( "text/csv" );
+                fileIntent.putExtra( Intent.EXTRA_SUBJECT, "Data" );
+                fileIntent.addFlags( Intent.FLAG_GRANT_READ_URI_PERMISSION );
+                fileIntent.putExtra( Intent.EXTRA_STREAM, path );
+                startActivity( Intent.createChooser( fileIntent, "Send Email" ) );
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
+        Toast.makeText( ResultadoValorAlternativa.this,"Se genero archivo" ,Toast.LENGTH_SHORT).show();
     }
 
     private void permisos(){
