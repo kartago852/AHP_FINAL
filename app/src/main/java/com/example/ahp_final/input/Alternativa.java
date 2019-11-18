@@ -86,7 +86,7 @@ public class Alternativa extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int position = alternativaContainer.getChildCount() + 1;
-                final MyItemView myItemView = new MyItemView(Alternativa.this, position, "Alternativa");
+                final MyItemView myItemView = new MyItemView(Alternativa.this, position, "Alternativa #");
                 myItemView.setOnDeleteItemListener(new MyItemView.ItemViewListener() {
                     @Override
                     public void onDeleteItemListener() {
