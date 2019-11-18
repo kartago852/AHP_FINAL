@@ -82,7 +82,6 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
             String percent = String.valueOf((Math.round( grade )));
                 stringBuilder.add( new StringBuilder(  alternativa  ));
                 stringBuilder.add( new StringBuilder(  "\n"+percent) );
-
         }
         /*
         for (String criterio : modeloVistaData.CriterioValorMap.keySet()){
