@@ -69,43 +69,48 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
     }
 
     public void excelData(View view){
-        Iterator<String> itext = modeloVistaData.AlternativaValorMap.keySet().iterator();
+        Iterator<String> italt = modeloVistaData.AlternativaValorMap.keySet().iterator();
+        Iterator<String> itcri = modeloVistaData.CriterioValorMap.keySet().iterator();
         List<StringBuilder> stringBuilder = new ArrayList<>(  );
-        while(itext.hasNext()) {
-            //Generar Data
 
 
-            String alternativa = itext.next();
-            Float grade = modeloVistaData.AlternativaValorMap.get( alternativa );
-            stringBuilder.add( new StringBuilder(alternativa));
+
+        StringBuilder data = new StringBuilder();
+        //stringBuilder.add( new StringBuilder(    ));
+        for (String alternativa : modeloVistaData.AlternativaValorMap.keySet()){
+            Float grade = modeloVistaData.AlternativaValorMap.get(alternativa);
+            String percent = String.valueOf((Math.round( grade )));
+                stringBuilder.add( new StringBuilder(  alternativa  ));
+                stringBuilder.add( new StringBuilder(  "\n"+percent) );
+
+        }
         /*
-        for (int x = 0; x<5;x++){
-            data.append( "\n"+String.valueOf( x )+","+String.valueOf( x*x ) );
+        for (String criterio : modeloVistaData.CriterioValorMap.keySet()){
+            stringBuilder.add( new StringBuilder( "\n" + criterio  ));
+
         }
         */
 
-            try {
-                FileOutputStream out = openFileOutput( "data.csv", Context.MODE_PRIVATE );
-                out.write( (stringBuilder.toString().getBytes()) );
-                out.close();
+        try {
+            FileOutputStream out = openFileOutput( "data.csv", Context.MODE_PRIVATE );
+            out.write( (stringBuilder.toString().getBytes()) );
+            out.close();
 
-                Context context = getApplicationContext();
-                File fileLocation = new File( getFilesDir(), "data.csv" );
-                Uri path = FileProvider.getUriForFile( context, "com.example.ahp_final.fileprovider", fileLocation );
-                Intent fileIntent = new Intent( Intent.ACTION_SEND );
-                fileIntent.setType( "text/csv" );
-                fileIntent.putExtra( Intent.EXTRA_SUBJECT, "Data" );
-                fileIntent.addFlags( Intent.FLAG_GRANT_READ_URI_PERMISSION );
-                fileIntent.putExtra( Intent.EXTRA_STREAM, path );
-                startActivity( Intent.createChooser( fileIntent, "Send Email" ) );
+            Context context = getApplicationContext();
+            File fileLocation = new File( getFilesDir(), "data.csv" );
+            Uri path = FileProvider.getUriForFile( context, "com.example.ahp_final.fileprovider", fileLocation );
+            Intent fileIntent = new Intent( Intent.ACTION_SEND );
+            fileIntent.setType( "text/csv" );
+            fileIntent.putExtra( Intent.EXTRA_SUBJECT, "Data" );
+            fileIntent.addFlags( Intent.FLAG_GRANT_READ_URI_PERMISSION );
+            fileIntent.putExtra( Intent.EXTRA_STREAM, path );
+            startActivity( Intent.createChooser( fileIntent, "Send Email" ) );
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        Toast.makeText( ResultadoValorAlternativa.this,"Se genero archivo" ,Toast.LENGTH_SHORT).show();
-    }
+       }
 
     private void permisos(){
 
