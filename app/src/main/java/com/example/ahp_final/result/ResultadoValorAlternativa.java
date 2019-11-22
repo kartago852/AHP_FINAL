@@ -76,19 +76,29 @@ public class ResultadoValorAlternativa extends AppCompatActivity {
 
 
         StringBuilder data = new StringBuilder();
-        //stringBuilder.add( new StringBuilder(    ));
-        for (String alternativa : modeloVistaData.AlternativaValorMap.keySet()){
-            Float grade = modeloVistaData.AlternativaValorMap.get(alternativa);
-            String percent = String.valueOf((Math.round( grade )));
-                stringBuilder.add( new StringBuilder(  alternativa  ));
-                stringBuilder.add( new StringBuilder(  "\n"+percent) );
-        }
-        /*
+        stringBuilder.add( new StringBuilder(    ));
         for (String criterio : modeloVistaData.CriterioValorMap.keySet()){
-            stringBuilder.add( new StringBuilder( "\n" + criterio  ));
+            stringBuilder.add( new StringBuilder(  criterio  ));
 
         }
+        /*
+        for (String alternativa : modeloVistaData.AlternativaValorMap.keySet()){
+            stringBuilder.add( new StringBuilder( "\n" + alternativa  ));
+        }
         */
+
+        while(italt.hasNext()){
+            String alternativa = italt.next();
+            Float grade = modeloVistaData.AlternativaValorMap.get(alternativa);
+            String percent = String.valueOf((Math.round( grade )));
+            stringBuilder.add( new StringBuilder( "\n" + alternativa ));
+            for (int i = 0;i<9;i++){
+                stringBuilder.add( new StringBuilder( "\n" +  i));
+            }
+
+        }
+
+
 
         try {
             FileOutputStream out = openFileOutput( "data.csv", Context.MODE_PRIVATE );
